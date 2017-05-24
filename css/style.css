@@ -1,0 +1,61 @@
+.app {
+  text-align: center;
+}
+
+/*watch screen*/
+div.rectangle {
+width:272px;
+height:340px;
+border-style: solid;
+border-width:3px ;
+border-color: #000;
+margin-top: 100px;
+margin-left: 50%;
+vertical-align: middle;
+border-radius: 30px;
+}
+
+.input{
+  width: 240px;
+  margin: 0 auto;
+  border: 1px solid black;
+  margin-top: 10px;
+}
+
+
+/*Homepage Keyboard*/
+
+.a-f {
+    display: inline-block;
+    -ms-transform: rotate(270deg); /* IE 9 */
+    -webkit-transform: rotate(270eg); /* Chrome, Safari, Opera */
+    transform: rotate(270deg);
+}
+
+.n-t {
+    display: inline-block;
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90eg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+}
+
+.g-m {
+  padding-top: 10px;
+}
+
+.u-z {
+  padding-top: 100px;
+}
+
+.space {
+  vertical-align: middle;
+  margin-right: 40px;
+  margin-left: 40px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border: 1px solid black;
+}
+
+.middle{
+  padding-top: 100px;
+}
