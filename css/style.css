@@ -72,3 +72,8 @@ border-radius: 30px;
   padding: 40px;
   font-size: 3.5rem;
 }
+
+#a, #e {
+  padding-top: 10px;
+  margin-top: 30px;
+}
