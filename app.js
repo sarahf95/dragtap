@@ -56,8 +56,6 @@ $(function(){
     });
 });
 
-
-
 //Space bar functionality
 $(function(){
     var $write = $('#write');   
