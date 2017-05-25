@@ -72,15 +72,17 @@ border-radius: 30px;
 .char{
   padding: 40px;
   font-size: 3.5rem;
-  
-  /*Prevents text from being highlighted, helps with selecting letters*/
-  -webkit-user-select: none; 
-  -moz-user-select: none;    
-  -ms-user-select: none;
-  user-select: none;
 }
 
 #a, #b {
   padding-top: 0px;
   margin-top: 40px;
+}
+
+body {
+    /*Prevents text from being highlighted, helps with selecting letters*/
+  -webkit-user-select: none; 
+  -moz-user-select: none;    
+  -ms-user-select: none;
+  user-select: none;
 }
