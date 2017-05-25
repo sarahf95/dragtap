@@ -22,18 +22,21 @@ $(document).ready(function () {
 $(function () {
     var $write = $('write');
 
-    $('.letter').click(function () {
+    $('.char').click(function(){
         var $this = $(this),
             character = $this.html();
             
         // space
-        $('.space' ).click(function(){
-            var $write = $('write')
-        })       
+        // $('.space' ).click(function(){
+        //    character = ' ';
+        // })      
+        if($this.hasClass('space')) character = ' '; 
         // Add the character
-        $write.html($write.html() + character);
+        $("#write").html(character);
     });
 });
+
+
 
 
 // $(function(){
