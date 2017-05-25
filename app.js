@@ -40,7 +40,6 @@ $(document).ready(function () {
 });
 
 // "typing"
-
 $(function(){
     var $write = $('#write');
      
