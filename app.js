@@ -39,73 +39,24 @@ $(document).ready(function () {
     });
 });
 
-// "typing" for a-f keyboard
+// "typing" for keyboard
 $(function(){
     var $write = $('#write');
 
     //Typing with drag
-    $('.af .char').mouseup(function(){
+    $('.char').mouseup(function(){
         var $this = $(this),
         character = $this.html(); 
 
         // Add the character
         $write.html($write.html() + character);
             
-        $('.af').hide();
+        $($this.parent().parent()).hide();
         $('.home, .middle').show();
     });
 });
 
-// "typing" for g-m keyboard
-$(function(){
-    var $write = $('#write');
 
-    //Typing with drag
-    $('.gm .char').mouseup(function(){
-        var $this = $(this),
-            character = $this.html(); 
-
-        // Add the character
-        $write.html($write.html() + character);
-            
-        $('.gm').hide();
-        $('.home, .middle').show();
-    });
-});
-
-//Typing for n-t keyboard
-$(function(){
-    var $write = $('#write');
-
-    //Typing with drag
-    $('.nt .char').mouseup(function(){
-        var $this = $(this),
-            character = $this.html(); 
-
-        // Add the character
-        $write.html($write.html() + character);
-            
-        $('.nt').hide();
-        $('.home, .middle').show();
-    });
-});
-
-//Typing for u-z keyboard
-$(function(){
-    var $write = $('#write');
-
-    //Typing with drag
-    $('.uz .char').mouseup(function(){
-        var $this = $(this),
-            character = $this.html(); 
-
-        // Add the character
-        $write.html($write.html() + character);
-            
-        $('.uz').hide();
-        $('.home, .middle').show();
-    });
-});
 
 //Space bar functionality
 $(function(){
