@@ -8,12 +8,34 @@ $(document).ready(function () {
 
 // keep other screens hidden
 $(".af").hide();
+$(".gm").hide();
+$(".nt").hide();
+$(".uz").hide();
+
 
 
 // show second screen when clicked
 $(document).ready(function () {
     $(".a-f").mousedown(function () {
         $('.af').show();
+    });
+});
+
+$(document).ready(function () {
+    $(".g-m").click(function () {
+        $('.gm').show();
+    });
+});
+
+$(document).ready(function () {
+    $(".n-t").click(function () {
+        $('.nt').show();
+    });
+});
+
+$(document).ready(function () {
+    $(".u-z").click(function () {
+        $('.uz').show();
     });
 });
 
