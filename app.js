@@ -32,3 +32,12 @@ $(function(){
     });
 });
 
+//Backspace functionality: swipe left to backspace
+var textbox = document.getElementById("write");
+var backspace = new Hammer(textbox);
+backspace.on("swipeleft", function() {
+    var temp = textbox.innerHTML;
+    var length = temp.length -  1;
+    textbox.innerHTML = temp.substring(0, length);
+});
+
