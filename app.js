@@ -39,7 +39,7 @@ $(document).ready(function () {
     });
 });
 
-// "typing"
+// "typing" for a-f keyboard
 $(function(){
     var $write = $('#write');
     
@@ -51,7 +51,6 @@ $(function(){
         once = false;
         var $this = $(this),
             character = $this.html(); 
-        if ($this.hasClass('space')) character = ' ';
 
         // Add the character
         $write.html($write.html() + character);
@@ -65,7 +64,6 @@ $(function(){
         if(once) {
             var $this = $(this),
                 character = $this.html(); 
-            if ($this.hasClass('space')) character = ' ';
 
             // Add the character
             $write.html($write.html() + character);
@@ -73,6 +71,121 @@ $(function(){
             $('.af').hide();
             $('.home, .middle').show();
         }
+    });
+});
+
+// "typing" for g-m keyboard
+$(function(){
+    var $write = $('#write');
+    
+    //This variable is used to make sure that only one letter is input when clicking a key
+    var once = true;
+
+    //Typing with click 
+    $('.gm .char').mousedown(function(){
+        once = false;
+        var $this = $(this),
+            character = $this.html(); 
+
+        // Add the character
+        $write.html($write.html() + character);
+        
+        $('.gm').hide();
+        $('.home, .middle').show();
+    });
+
+    //Typing with drag
+    $('.gm .char').mouseup(function(){
+        if(once) {
+            var $this = $(this),
+                character = $this.html(); 
+
+            // Add the character
+            $write.html($write.html() + character);
+            
+            $('.gm').hide();
+            $('.home, .middle').show();
+        }
+    });
+});
+
+//Typing for n-t keyboard
+$(function(){
+    var $write = $('#write');
+    
+    //This variable is used to make sure that only one letter is input when clicking a key
+    var once = true;
+
+    //Typing with click 
+    $('.nt .char').mousedown(function(){
+        once = false;
+        var $this = $(this),
+            character = $this.html(); 
+
+        // Add the character
+        $write.html($write.html() + character);
+        
+        $('.nt').hide();
+        $('.home, .middle').show();
+    });
+
+    //Typing with drag
+    $('.nt .char').mouseup(function(){
+        if(once) {
+            var $this = $(this),
+                character = $this.html(); 
+
+            // Add the character
+            $write.html($write.html() + character);
+            
+            $('.nt').hide();
+            $('.home, .middle').show();
+        }
+    });
+});
+
+//Typing for u-z keyboard
+$(function(){
+    var $write = $('#write');
+    
+    //This variable is used to make sure that only one letter is input when clicking a key
+    var once = true;
+
+    //Typing with click 
+    $('.uz .char').mousedown(function(){
+        once = false;
+        var $this = $(this),
+            character = $this.html(); 
+
+        // Add the character
+        $write.html($write.html() + character);
+        
+        $('.uz').hide();
+        $('.home, .middle').show();
+    });
+
+    //Typing with drag
+    $('.uz .char').mouseup(function(){
+        if(once) {
+            var $this = $(this),
+                character = $this.html(); 
+
+            // Add the character
+            $write.html($write.html() + character);
+            
+            $('.uz').hide();
+            $('.home, .middle').show();
+        }
+    });
+});
+
+//Space bar functionality
+$(function(){
+    var $write = $('#write');   
+    var character = ' ';
+    //Typing with click 
+    $('#space').mousedown(function(){
+        $write.html($write.html() + character);
     });
 });
 
