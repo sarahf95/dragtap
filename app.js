@@ -1,7 +1,7 @@
 
 //  hide homepage when button pressed
 $(document).ready(function () {
-    $(".letter").click(function () {
+    $(".letter").mousedown(function () {
         $('.home, .middle').hide(); //this will hide all the div(s) firstly
     });
 });
@@ -12,7 +12,7 @@ $(".af").hide();
 
 // show second screen when clicked
 $(document).ready(function () {
-    $(".a-f").click(function () {
+    $(".a-f").mousedown(function () {
         $('.af').show();
     });
 });
@@ -21,14 +21,31 @@ $(document).ready(function () {
 
 $(function(){
     var $write = $('#write');
-     
-    $('.af .char').click(function(){
+    
+    //This variable is used to make sure that only one letter is input when clicking a key
+    var once = true;
+
+    //Typing with click 
+    $('.af .char').mousedown(function(){
+        once = false;
         var $this = $(this),
             character = $this.html(); 
         if ($this.hasClass('space')) character = ' ';
 
         // Add the character
         $write.html($write.html() + character);
+    });
+
+    //Typing with drag
+    $('.af .char').mouseup(function(){
+        if(once) {
+            var $this = $(this),
+                character = $this.html(); 
+            if ($this.hasClass('space')) character = ' ';
+
+            // Add the character
+            $write.html($write.html() + character);
+        }
     });
 });
 
@@ -40,4 +57,6 @@ backspace.on("swipeleft", function() {
     var length = temp.length -  1;
     textbox.innerHTML = temp.substring(0, length);
 });
+
+
 
