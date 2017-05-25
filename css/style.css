@@ -20,6 +20,7 @@ border-radius: 30px;
   margin: 0 auto;
   border: 1px solid black;
   margin-top: 10px;
+  resize: none;
 }
 
 
@@ -71,9 +72,15 @@ border-radius: 30px;
 .char{
   padding: 40px;
   font-size: 3.5rem;
+  
+  /*Prevents text from being highlighted, helps with selecting letters*/
+  -webkit-user-select: none; 
+  -moz-user-select: none;    
+  -ms-user-select: none;
+  user-select: none;
 }
 
-#a, #e {
-  padding-top: 10px;
-  margin-top: 30px;
+#a, #b {
+  padding-top: 0px;
+  margin-top: 40px;
 }
