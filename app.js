@@ -22,19 +22,19 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $(".g-m").click(function () {
+    $(".g-m").mousedown(function () {
         $('.gm').show();
     });
 });
 
 $(document).ready(function () {
-    $(".n-t").click(function () {
+    $(".n-t").mousedown(function () {
         $('.nt').show();
     });
 });
 
 $(document).ready(function () {
-    $(".u-z").click(function () {
+    $(".u-z").mousedown(function () {
         $('.uz').show();
     });
 });
@@ -56,6 +56,9 @@ $(function(){
 
         // Add the character
         $write.html($write.html() + character);
+        
+        $('.af').hide();
+        $('.home, .middle').show();
     });
 
     //Typing with drag
@@ -67,6 +70,9 @@ $(function(){
 
             // Add the character
             $write.html($write.html() + character);
+            
+            $('.af').hide();
+            $('.home, .middle').show();
         }
     });
 });
