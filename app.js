@@ -12,7 +12,19 @@ $(".gm").hide();
 $(".nt").hide();
 $(".uz").hide();
 
+//Hides test directions initially
+$(".test").hide();
 
+//Used so that the program can tell if a test is active.
+var test = false;
+
+//Controls functionality to start test.
+$(".starttest").click(function () {
+    $(".demo").hide();
+    $(".test").show();
+    test = true;
+    var filename = prompt("What would you like to name your output file?");
+});
 
 // show second screen when clicked
 $(document).ready(function () {
