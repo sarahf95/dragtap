@@ -24,7 +24,6 @@ border-radius: 30px;
   resize: none;
 }
 
-
 /*Homepage Keyboard*/
 
 .a-f {
@@ -98,4 +97,10 @@ body {
   -moz-user-select: auto;    
   -ms-user-select: auto;
   user-select: auto;
+}
+
+.promptText {
+  font-size: 20px;
+  font-weight: bold;
+  color: blue;
 }

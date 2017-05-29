@@ -24,9 +24,13 @@ $(".test").hide();
 
 //Hides results section as well in test area
 $(".resultssection").hide();
+$(".prompt").hide();
 
 //Used so that the program can tell if a test is active.
 var test = false;
+
+//Counts trials
+var count = 0;
 
 //Controls functionality to start test.
 $(".starttest").click(function () {
@@ -98,14 +102,38 @@ backspace.on("swipeleft", function() {
     textbox.innerHTML = temp.substring(0, length);
 });
 
+//Swipe right to enter text (temporary)
+var enterText = new Hammer(textbox);
+enterText.on("swiperight", function() {
+    //While test is still running
+    if(test) {
+        showNextQuestion();
+    }
+    
+    //When test is finished
+    if(count == 6) {
+        $(".prompt").hide();
+        $(".resultssection").show();
+        test = false;      
+    }
+});
 
-//Preforms a 45 phrase test for keyboard
+
+//Starts a 45 phrase test for keyboard
 function textTest() {
+    $(".prompt").show();
     test = true;
     var results = $(".results");
     results.append(document.createTextNode("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"));
-    $(".resultssection").show();
-    test = false;
+    showNextQuestion();
+}
+
+//Shows a new phrase
+function showNextQuestion() {
+        $(".input").empty();
+        var singlePhrase = phrases[Math.floor((Math.random() * phrases.length))]
+        $(".promptText").text(singlePhrase);  
+        count++;
 }
 
 
