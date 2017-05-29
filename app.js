@@ -1,3 +1,9 @@
+var test = false; //Used so that the program can tell if a test is active.
+var keystrokes = false; //Used so that Program can tell if it should record keystrokes.
+var count = 0; //Counts trials.
+var numTrials = 0; //Number of reals trials as specified by user.
+var trialData = ""; //Stores data for a trial before it is written to output
+
 //Stores the phrases needed for testing in array
 $(".phrases").hide();
 var rawText = $(".phrases").text();
@@ -26,18 +32,13 @@ $(".test").hide();
 $(".resultssection").hide();
 $(".prompt").hide();
 
-//Used so that the program can tell if a test is active.
-var test = false;
-
-//Counts trials
-var count = 0;
-
 //Controls functionality to start test.
 $(".starttest").click(function () {
     $(".demo").hide();
     $(".test").show();
     test = true;
-    var filename = alert("Click ok to start test");
+    numTrials = prompt("How many trials do you want this test to contain (In addition to five practice trials) Enter a number");
+    numTrials = parseInt(numTrials);
     textTest();
 });
 
@@ -80,6 +81,11 @@ $(function(){
             
         $($this.parent().parent()).hide();
         $('.home, .middle').show();
+
+        //records data if after practice trials
+        if(keystrokes) {
+            recordKeyData(character);
+        }
     });
 });
 
@@ -91,6 +97,11 @@ $(function(){
     $('#space').mousedown(function(){
         $write.html($write.html() + character);
     });
+    
+    //Records data if after practice trials
+    if(keystrokes) {
+        recordKeyData(character);
+    }
 });
 
 //Backspace functionality: swipe left to backspace
@@ -100,41 +111,92 @@ backspace.on("swipeleft", function() {
     var temp = textbox.innerHTML;
     var length = temp.length -  1;
     textbox.innerHTML = temp.substring(0, length);
+    if(keystrokes) {
+        recordKeyData("&#x8");
+    }
 });
 
 //Swipe right to enter text (temporary)
 var enterText = new Hammer(textbox);
-enterText.on("swiperight", function() {
-    //While test is still running
-    if(test) {
-        showNextQuestion();
+enterText.on("swiperight", function() {     
+    count++;
+
+    //Sets Transcribed if practice trials are completed and a trial has finished      
+    if(keystrokes && count > 5) {
+        var transcribed = $(".input").text();
+        var results = $(".results");
+        results.append(document.createTextNode("<Transcribed>" + transcribed + "</Transcribed>"));
+        results.append('</br>');  
     }
-    
-    //When test is finished
-    if(count == 6) {
-        $(".prompt").hide();
-        $(".resultssection").show();
-        test = false;      
+
+    if(test) {       
+        
+        //Creates testing information once practice trials have been completed
+        if(count == 5) {
+            var d = new Date();
+            var date = d.toLocaleString();
+            var ticks = ((d.getTime() * 10000) + 621355968000000000);
+            var seconds = ticks / 1000;      
+            var results = $(".results");
+            results.append(document.createTextNode("<TextTest version=\"2.7.2\" trials=\"" + numTrials + "\" ticks=\"" + ticks + "\" seconds=\"" + seconds + "\" date=\"" + date + "\">"));    
+            results.append('</br>');
+            keystrokes = true;
+        
+        
+        } 
+        
+        //If test is finished
+        if(count >= (numTrials + 5)) {
+            var results = $(".results");
+            results.append(document.createTextNode("</TextTest>"));
+            $(".prompt").hide();
+            $(".resultssection").show();
+            test = false;
+            keystrokes = false;      
+        } else {
+            showNextQuestion();
+        }
+
     }
 });
 
 
-//Starts a 45 phrase test for keyboard
+//Starts a test for keyboard
 function textTest() {
     $(".prompt").show();
     test = true;
     var results = $(".results");
     results.append(document.createTextNode("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"));
+    results.append('</br>');
     showNextQuestion();
 }
 
 //Shows a new phrase
 function showNextQuestion() {
+                
         $(".input").empty();
         var singlePhrase = phrases[Math.floor((Math.random() * phrases.length))]
-        $(".promptText").text(singlePhrase);  
-        count++;
+        $(".promptText").text(singlePhrase); 
+        
+        //records presented data if recording keystrokes
+        if(keystrokes && count ) {
+            var results = $(".results");
+            results.append(document.createTextNode("<Presented>" + singlePhrase + "</Presented>"));
+            results.append('</br>');            
+        } 
 }
 
-
+//Records keystroke data about a given character
+function recordKeyData(key) {
+            var d = new Date();
+            var ticks = ((d.getTime() * 10000) + 621355968000000000);
+            var seconds = ticks / 10000000;               
+            var ascii = key.charCodeAt(0)
+            if(key == "&#x8") {
+                acii = 8;
+            }
+            var results = $(".results");
+            results.append(document.createTextNode("<Entry char=\"" + key + "\" value=\"" + ascii + "\" ticks=\"" + ticks + "\" seconds=\"" + seconds + "\" />")); 
+            results.append('</br>');      
+}
 
