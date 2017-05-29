@@ -1,3 +1,10 @@
+//Stores the phrases needed for testing in array
+$(".phrases").hide();
+var rawText = $(".phrases").text();
+var phrases = rawText.split('\n');
+for( var i = 0; i < phrases.length; i++) {
+    phrases[i] = phrases[i].trim();    
+}
 
 //  hide homepage when button pressed
 $(document).ready(function () {
@@ -15,6 +22,9 @@ $(".uz").hide();
 //Hides test directions initially
 $(".test").hide();
 
+//Hides results section as well in test area
+$(".resultssection").hide();
+
 //Used so that the program can tell if a test is active.
 var test = false;
 
@@ -23,7 +33,8 @@ $(".starttest").click(function () {
     $(".demo").hide();
     $(".test").show();
     test = true;
-    var filename = prompt("What would you like to name your output file?");
+    var filename = alert("Click ok to start test");
+    textTest();
 });
 
 // show second screen when clicked
@@ -86,6 +97,16 @@ backspace.on("swipeleft", function() {
     var length = temp.length -  1;
     textbox.innerHTML = temp.substring(0, length);
 });
+
+
+//Preforms a 45 phrase test for keyboard
+function textTest() {
+    test = true;
+    var results = $(".results");
+    results.append(document.createTextNode("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"));
+    $(".resultssection").show();
+    test = false;
+}
 
 
 
