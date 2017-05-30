@@ -26,25 +26,25 @@ border-radius: 30px;
 
 /*Homepage Keyboard*/
 
-.a-f {
+.a-f, .A-F{
     display: inline-block;
     -ms-transform: rotate(270deg); /* IE 9 */
     -webkit-transform: rotate(270eg); /* Chrome, Safari, Opera */
     transform: rotate(270deg);
 }
 
-.n-t {
+.n-t, .N-T{
     display: inline-block;
     -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90eg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
 }
 
-.g-m {
+.g-m, .G-M{
   padding-top: 10px;
 }
 
-.u-z {
+.u-z, .U-Z{
   margin-top: 100px;
 }
 
