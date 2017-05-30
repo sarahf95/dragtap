@@ -66,6 +66,54 @@ $(document).ready(function () {
         $('.uz').show();
     });
 });
+/*Capital Letters Functionality*/
+$('.caps').hide(); //Hides capital letters initially
+
+//Toggles caps and nomal keyboard
+$('#write').toggle(function() {
+    $('.home, .middle').hide();
+    $('.caps').show();
+}, function() {
+    $('.home, .middle').show();
+    $('.caps').hide();
+});
+
+//Hides all cap keyboards initially
+$(".AF").hide();
+$(".GM").hide();
+$(".NT").hide();
+$(".UZ").hide();
+
+//Opens capital keyboards when clicked
+$(document).ready(function () {
+    $(".A-F").mousedown(function () {
+        $('.AF').show();
+        $('.caps').hide();
+    });
+});
+
+$(document).ready(function () {
+    $(".G-M").mousedown(function () {
+        $('.GM').show();
+        $('.caps').hide();
+    });
+});
+
+$(document).ready(function () {
+    $(".N-T").mousedown(function () {
+        $('.NT').show();
+        $('.caps').hide();
+    });
+});
+
+$(document).ready(function () {
+    $(".U-Z").mousedown(function () {
+        $('.UZ').show();
+        $('.caps').hide();
+    });
+});
+
+
 
 // "typing" for keyboard
 $(function(){
@@ -106,8 +154,8 @@ $(function(){
 
 //Backspace functionality: swipe left to backspace
 var textbox = document.getElementById("write");
-var backspace = new Hammer(textbox);
-backspace.on("swipeleft", function() {
+var inputbox = new Hammer(textbox);
+inputbox.on("swipeleft", function() {
     var temp = textbox.innerHTML;
     var length = temp.length -  1;
     textbox.innerHTML = temp.substring(0, length);
@@ -116,9 +164,8 @@ backspace.on("swipeleft", function() {
     }
 });
 
-//Swipe right to enter text (temporary)
-var enterText = new Hammer(textbox);
-enterText.on("swiperight", function() {     
+//Swipe right on input box to enter text
+inputbox.on("swiperight", function() {     
     count++;
 
     //Records data at the end of a trial     

@@ -26,13 +26,24 @@
             <div class="homepage">
                 <div class="Input">
                     <textarea id="write" class="input" readonly></textarea>
-                    <div class="g-m home letter">G-M</div>
+                    <div class="g-m home letter">g-m</div>
                     <div class="middle">
-                        <span class="a-f home letter">A-F</span>
+                        <span class="a-f home letter">a-f</span>
                         <span class="space home" id="space">space</span>
-                        <span class="n-t home letter">N-T</span>
+                        <span class="n-t home letter">n-t</span>
                     </div>
-                    <div class="u-z home letter">U-Z</div>
+                    <div class="u-z home letter">u-z</div>
+                    
+                    <!-- Capital Letters -->
+                    <div class="caps">    
+                        <div class="G-M home letter caps">G-M</div>
+                        <div class="middle caps">
+                            <span class="A-F letter caps">A-F</span>
+                            <span class="space home caps" id="space">space</span>
+                            <span class="N-T home letter caps">N-T</span>
+                        </div>
+                        <div class="U-Z home letter caps">U-Z</div>
+                    </div>
 
                     <!--a-f-->
                     <div class="af">
@@ -64,6 +75,38 @@
                         <div class="row"><span class="char" id="u">u</span><span class="char" id="w">w</span></div>
                     </div>
 
+
+                    <!-- Capital Letters -->
+                    <!--a-f-->
+                    <div class="AF">
+                        <div class="row"><span id="a" class="char">A</span><span class="char" id="b">B</span></div>
+                        <div class="row"><span class="char" id="e">E</span><span class="char" id="d">D</span></div>
+                        <div class="row"><span class="char" id="c">C</span><span class="char" id="f">F</span></div>
+                    </div>
+                    
+                    <!--g-m-->
+                    <div class="GM ">
+                        <div class="row"><span id="h" class="char">H</span><span class="char" id="i">I</span></div>
+                        <div class="row"><span class="char" id="l">L</span><span class="char" id="m">M</span></div>
+                        <div class="row"><span class="char" id="k">K</span><span class="char" id="h">G</span></div>
+                        <div> <span class="char" id="j">J</span></div>
+                    </div>
+
+                    <!--n-t-->
+                    <div class="NT">
+                        <div class="row"><span id="r" class="char">R</span><span class="char" id="o">O</span></div>
+                        <div class="row"><span class="char" id="s">S</span><span class="char" id="t">T</span></div>
+                        <div class="row"><span class="char" id="p">P</span><span class="char" id="n">N</span></div>
+                        <div> <span class="char" id="q">Q</span></div>
+                    </div>
+
+                    <!--u-z-->
+                    <div class="UZ">
+                        <div class="row"><span id="x" class="char">X</span><span class="char" id="z">Z</span></div>
+                        <div class="row"><span class="char" id="y">Y</span><span class="char" id="v">V</span></div>
+                        <div class="row"><span class="char" id="u">U</span><span class="char" id="w">W</span></div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -77,14 +120,14 @@
         <h2>Demo Mode</h2>
         <p>
             Letters are input by clicking on a letter group button and dragging to the desired letter. Swipe left on the input area
-            in order to backspace and access capital letters by clicking on the caps toggle button by the text entry area. Symbols
+            in order to backspace and access capital letters by clicking on the text entry area. Click again to toggle back to lowercase letters. Symbols
             and letters can be accessed by swiping toward the center of the screen from the side keyboard toggles.
         </p>
     </div>
 
     <div class="jumbotron test">
         <h2>Test Mode</h2>
-        <p>Copy the provided sentences with the keyboard. The first 5 trials will be discarded as practice</p>
+        <p>Copy the provided sentences with the keyboard. There will be 45 phrases total for you to type and the first 5 will be discarded as practice</p>
         <div class="resultssection">
             <h3>Your result data:</h3>
             <p class="results"></p>
