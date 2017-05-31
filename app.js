@@ -24,6 +24,9 @@ $(".af").hide();
 $(".gm").hide();
 $(".nt").hide();
 $(".uz").hide();
+$(".numbers").hide();
+$(".symbols1").hide();
+$(".symbols2").hide();
 
 //Hides test directions initially
 $(".test").hide();
@@ -163,6 +166,37 @@ inputbox.on("swipeleft", function() {
         recordKeyData("&#x8");
     }
 });
+
+
+// Access numbers: swipe right
+var homepage = document.getElementsByClassName("homepage");
+var numbers = document.getElementsByClassName("numbers");
+var mainpage = new Hammer(homepage);
+mainpage.on("swiperight", function() {
+    mainpage.hide();
+    numbers.show();
+});
+
+// Access symbols: swipe left
+var homepage = document.getElementsByClassName("homepage");
+var punctuation1 = document.getElementsByClassName("symbols1");
+var mainpage = new Hammer(homepage);
+mainpage.on("swipeleft", function() {
+    mainpage.hide();
+    punctuation1.show();
+});
+
+// Access symbols: swipe left
+var symbols = document.getElementsByClassName("symbols1");
+var punctuation2 = document.getElementsByClassName("symbols2");
+var mainpage = new Hammer(symbols);
+mainpage.on("swipeleft", function() {
+    punctuation1.hide();
+    punctuation2.show();
+});
+
+
+
 
 //Swipe right on input box to enter text
 inputbox.on("swiperight", function() {     
