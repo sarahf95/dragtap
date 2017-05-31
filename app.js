@@ -178,7 +178,6 @@ mainpage.on("swiperight", function() {
 });
 
 // Access symbols: swipe left
-var homepage = document.getElementsByClassName("homepage");
 var punctuation1 = document.getElementsByClassName("symbols1");
 var mainpage = new Hammer(homepage);
 mainpage.on("swipeleft", function() {
