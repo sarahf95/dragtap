@@ -28,6 +28,9 @@ $(".numbers").hide();
 $(".symbols1").hide();
 $(".symbols2").hide();
 
+// hide testing button
+$(".starttest").hide();
+
 //Hides all cap keyboards initially
 $(".AF").hide();
 $(".GM").hide();
