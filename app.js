@@ -28,6 +28,12 @@ $(".numbers").hide();
 $(".symbols1").hide();
 $(".symbols2").hide();
 
+//Hides all cap keyboards initially
+$(".AF").hide();
+$(".GM").hide();
+$(".NT").hide();
+$(".UZ").hide();
+
 //Hides test directions initially
 $(".test").hide();
 
@@ -70,7 +76,7 @@ $(document).ready(function () {
     });
 });
 /*Capital Letters Functionality*/
-$('.caps').hide(); //Hides capital letters initially
+$('.lowercase').hide(); //Hides lowercase letters initially
 
 //Toggles caps and nomal keyboard
 $('#write').toggle(function() {
@@ -80,12 +86,6 @@ $('#write').toggle(function() {
     $('.home, .middle').show();
     $('.caps').hide();
 });
-
-//Hides all cap keyboards initially
-$(".AF").hide();
-$(".GM").hide();
-$(".NT").hide();
-$(".UZ").hide();
 
 //Opens capital keyboards when clicked
 $(document).ready(function () {
@@ -126,6 +126,7 @@ $(function(){
     $('.char').mouseup(function(){
         var $this = $(this),
         character = $this.html(); 
+        $(".lowercase").show();
 
         // Add the character
         $write.html($write.html() + character);
