@@ -288,4 +288,3 @@ function recordKeyData(key) {
             }
             trialData.push("<Entry char=\"" + key + "\" value=\"" + ascii + "\" ticks=\"" + ticks + "\" seconds=\"" + seconds + "\" />");      
 }
-
