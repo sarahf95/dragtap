@@ -29,6 +29,15 @@ border-radius: 30px;
   font-size: 3rem;
 }
 
+
+.letter, .caps{
+  font-size: 2.5rem;
+}
+
+.space {
+  font-size: 1.7rem;
+}
+
 .a-f, .A-F{
     display: inline-block;
     -ms-transform: rotate(270deg); /* IE 9 */
