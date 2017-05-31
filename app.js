@@ -19,6 +19,16 @@ $(document).ready(function () {
     });
 });
 
+// "send" text 
+// var textbox = document.getElementById("write");
+// var sendbutton = document.getElementsByClassName("send");
+$(".send").click(function() {
+    $("#write").val('');
+});
+
+
+
+
 // keep other screens hidden
 $(".af").hide();
 $(".gm").hide();
