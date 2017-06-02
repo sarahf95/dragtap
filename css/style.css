@@ -23,11 +23,29 @@ border-radius: 30px;
 }
 
 .input{
-  width: 240px;
+  width: 75%;
+  border-radius: 5px;
   margin: 0 auto;
+  margin-left: 5px; 
   border: 1px solid black;
   margin-top: 10px;
   resize: none;
+  vertical-align: middle;
+}
+
+.send{
+  border: 1px solid black;
+  border-radius: 5px;
+    vertical-align: middle;
+}
+
+.iput-send{
+  display: inline-block;
+  text-align: center;
+  line-height: 300px;
+  vertical-align: middle;
+  
+  top: 50%;
 }
 
 /*Homepage Keyboard*/
