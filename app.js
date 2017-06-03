@@ -2,6 +2,7 @@ var test = false; //Used so that the program can tell if a test is active.
 var count = 0; //Counts trials.
 var numTrials = 0; //Number of reals trials as specified by user.
 var trialData = []; //Stores data for a trial before it is written to output
+var userData = document.implementation.createDocument(null, "TextTest"); //Creates xml object to be used for output document
 
 //Stores the phrases needed for testing in array
 $(".phrases").hide();
@@ -65,7 +66,7 @@ $(document).ready(function () {
     });
 });
 /*Capital Letters Functionality*/
-$('.lowercase').hide(); //Hides lowercase letters initially
+$('.caps').hide();
 
 //Toggles caps and nomal keyboard
 $('#write').toggle(function() {
@@ -122,7 +123,7 @@ $(function(){
         $('.home, .middle').show();
 
         //records data if after practice trials
-        if(count) {
+        if(test) {
             recordKeyData(character);
         }
     });
@@ -138,7 +139,7 @@ $(function(){
     });
     
     //Records data if after practice trials
-    if(count > 5) {
+    if(test) {
         recordKeyData(character);
     }
 });
@@ -150,7 +151,7 @@ inputbox.on("swipeleft", function() {
     var temp = textbox.innerHTML;
     var length = temp.length -  1;
     textbox.innerHTML = temp.substring(0, length);
-    if(count > 5) {
+    if(test) {
         recordKeyData("&#x8");
     }
 });
@@ -191,60 +192,124 @@ $(".starttest").click(function () {
     $(".test").show();
     test = true;
     numTrials = prompt("How many trials do you want this test to contain (In addition to five practice trials) Enter a number");
-    numTrials = parseInt(numTrials);
+    numTrials = parseInt(numTrials);   
+ 
+    //From Jimmy
+    var ticks = ((new Date().getTime() * 10000) + 621355968000000000);
+    var seconds = ticks / 10000000;
+    var root = userData.documentElement;
+    root.setAttribute("version", "2.7.2");
+    root.setAttribute("trials", numTrials); 
+    root.setAttribute("ticks", ticks);  
+    root.setAttribute("seconds", seconds);
+
+    //From Jimmy
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var date = new Date();
+    var currentDate = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + date.getHours()  + ':' + date.getMinutes() + ':' + date.getSeconds();
+    currentDate = formatDate(currentDate);
+    
+    // https://stackoverflow.com/questions/4898574/converting-24-hour-time-to-12-hour-time-w-am-pm-using-javascript
+    function formatDate(date) {
+        var d = new Date(date);
+        var hh = d.getHours();
+        var m = d.getMinutes();
+        var s = d.getSeconds();
+        var dd = "AM";
+        var h = hh;
+        if (h >= 12) {
+            h = hh - 12;
+            dd = "PM";
+        }
+        if (h == 0) {
+            h = 12;
+        }
+        m = m < 10 ? "0" + m : m;
+
+        s = s < 10 ? "0" + s : s;
+
+        /* if you want 2 digit hours:
+        h = h<10?"0"+h:h; */
+
+        var pattern = new RegExp("0?" + hh + ":" + m + ":" + s);
+
+        var replacement = h + ":" + m;
+        /* if you want to add seconds
+        replacement += ":"+s;  */
+        replacement += " " + dd;
+
+        return date.replace(pattern, replacement);
+    }       
+    var currentDate = days[date.getDay()] + ', ' + currentDate;
+    root.setAttribute("date", currentDate);
+
+    console.log(userData);
+   
+    //Starts test and starts count
+    test = true;
     count++;
-    textTest();
+
+    //Shows first question    
+    $(".prompt").show();
+    showNextQuestion();
 });
 
 // Click on send button to input text
 $(".send").click(function() {  
     
     if(test) {       
+        
+        //Records data at the end of a trial (from Jimmy)    
+        //Adds trial node
+        var singleTrial = userData.createElement("Trial");		
+        singleTrial.setAttribute("number", count); 
+        if(count <= 5) {
+            singleTrial.setAttribute("testing", "true");	            
+        } else {
+            singleTrial.setAttribute("testing", "false");
+        }		
+        singleTrial.setAttribute("entries", trialData.length);
+        userData.getElementsByTagName("TextTest")[0].appendChild(singleTrial);
+        
+        //Adds presented node
+        var presented = userData.createElement("Presented");
+        presented.textContent = $(".promptText").text();
+        userData.getElementsByTagName("Trial")[count - 1].appendChild(presented);   	       
 
-        //Records data at the end of a trial     
-        if(count > 5) {
-            var transcribed = $(".input").text();      
-            var results = $(".results");
-            results.append(document.createTextNode("<Trial number=\"" + (count - 5) + "\" testing=\"false\" entries=\"" + (trialData.length - 1) + "\">"));
-            results.append('</br>');  
-            for (var i = 0; i < trialData.length; i++) {
-                results.append(document.createTextNode(trialData[i]));
-                results.append('</br>');              
-            }
-            results.append(document.createTextNode("<Transcribed>" + transcribed + "</Transcribed>"));
-            results.append('</br>');  
-            results.append(document.createTextNode("</Trial>"));
-            results.append('</br>'); 
-            trialData = [];
+        //Loops through key entries
+        for(var i = 0; i < trialData.length; i++) {
+            var entryElement = userData.createElement("Entry");
+            entryElement.setAttribute("char", trialData[i][1]);
+            entryElement.setAttribute("value", trialData[i][2]);
+            entryElement.setAttribute("ticks", trialData[i][0]);		
+            entryElement.setAttribute("seconds", trialData[i][0] / 10000000);
+            userData.getElementsByTagName("Trial")[count - 1].appendChild(entryElement);  
         }
 
-        //Creates testing information once practice trials have been completed
-        if(count == 5) {
-            var d = new Date();
-            var date = d.toLocaleString();
-            var ticks = ((d.getTime() * 10000) + 621355968000000000);
-            var seconds = ticks / 10000000;      
-            var results = $(".results");
-            results.append(document.createTextNode("<TextTest version=\"2.7.2\" trials=\"" + numTrials + "\" ticks=\"" + ticks + "\" seconds=\"" + seconds + "\" date=\"" + date + "\">"));    
-            results.append('</br>');      
-        } 
-        
-        //If test is finished
+        //Adds transcribed node
+        var transcribed = userData.createElement("Transcribed");
+        transcribed.textContent = $(".input").text();
+        userData.getElementsByTagName("Trial")[count - 1].appendChild(transcribed);       
+
+        console.log(userData); //delete later
+
+        trialData = [];
+
+        //If test is finished, results can be downloaded
         if(count >= (numTrials + 5)) {
-            var results = $(".results");
-            results.append(document.createTextNode("</TextTest>"));
             $(".prompt").hide();
             $(".resultssection").show();
             test = false;
-            $(".input").empty();     
-        
+            $(".input").empty();   
+      
         //Shows the next question if the test is not finished
         } else {
             showNextQuestion();
         }
-
         count++;
-
+    
+    //Empties input if not testing
     } else {
         $(".input").empty();
     }
@@ -253,35 +318,43 @@ $(".send").click(function() {
 
 //Starts a test for keyboard
 function textTest() {
-    $(".prompt").show();
-    test = true;
-    var results = $(".results");
-    results.append(document.createTextNode("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"));
-    results.append('</br>');
-    showNextQuestion();
+
 }
 
 //Shows a new phrase
-function showNextQuestion() {
-                
+function showNextQuestion() {               
         $(".input").empty();
         var singlePhrase = phrases[Math.floor((Math.random() * phrases.length))]
         $(".promptText").text(singlePhrase); 
-        
-        //records data at beginning of trial
-        if(count > 5) {
-            trialData.push("<Presented>" + singlePhrase + "</Presented>");           
-        } 
 }
 
 //Records keystroke data about a given character
 function recordKeyData(key) {
-            var d = new Date();
-            var ticks = ((d.getTime() * 10000) + 621355968000000000);
-            var seconds = ticks / 10000000;               
-            var ascii = key.charCodeAt(0)
-            if(key == "&#x8") {
-                acii = 8;
-            }
-            trialData.push("<Entry char=\"" + key + "\" value=\"" + ascii + "\" ticks=\"" + ticks + "\" seconds=\"" + seconds + "\" />");      
+    var d = new Date();
+    var data = [3];
+    data[0] = ((d.getTime() * 10000) + 621355968000000000);             
+    var ascii = key.charCodeAt(0)
+    if(key == "&#x8") {
+        acii = 8;
+    } else if (key == " ") {
+        ascii = 32;
+    }
+    data[1] = key;
+    data[2] = ascii;         
+    trialData.push(data);
 }
+
+
+//Downloads file (from jimmy)
+$('.download').click(function() {
+    var a = document.createElement('a'), xml, ev;
+    a.download = 'Test_Result.xml'; // file name
+    xml = (new XMLSerializer()).serializeToString(userData).replace(/&amp;#x8;/gi, "&#x8;"); // convert node to xml string
+    var xmlNode = '<?xml version = "1.0" encoding="utf-8" standalone="yes"?>';
+    xml = xmlNode + xml;
+    a.href = 'data:application/octet-stream;base64,' + btoa(xml); // create data uri
+    // <a> constructed, simulate mouse click on it
+    ev = document.createEvent("MouseEvents");
+    ev.initMouseEvent("click", true, false, self, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    a.dispatchEvent(ev);
+});
