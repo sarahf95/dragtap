@@ -235,8 +235,7 @@ $(".starttest").click(function () {
         var pattern = new RegExp("0?" + hh + ":" + m + ":" + s);
 
         var replacement = h + ":" + m;
-        /* if you want to add seconds
-        replacement += ":"+s;  */
+        replacement += ":"+s; 
         replacement += " " + dd;
 
         return date.replace(pattern, replacement);
