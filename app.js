@@ -1,5 +1,4 @@
 var test = false; //Used so that the program can tell if a test is active.
-var keystrokes = false; //Used so that Program can tell if it should record keystrokes.
 var count = 0; //Counts trials.
 var numTrials = 0; //Number of reals trials as specified by user.
 var trialData = []; //Stores data for a trial before it is written to output
@@ -19,16 +18,6 @@ $(document).ready(function () {
     });
 });
 
-// "send" text 
-// var textbox = document.getElementById("write");
-// var sendbutton = document.getElementsByClassName("send");
-$(".send").click(function() {
-    $("#write").val('');
-});
-
-
-
-
 // keep other screens hidden
 $(".af").hide();
 $(".gm").hide();
@@ -37,9 +26,6 @@ $(".uz").hide();
 $(".numbers").hide();
 $(".symbols1").hide();
 $(".symbols2").hide();
-
-// hide testing button
-$(".starttest").hide();
 
 //Hides all cap keyboards initially
 $(".AF").hide();
@@ -53,16 +39,6 @@ $(".test").hide();
 //Hides results section as well in test area
 $(".resultssection").hide();
 $(".prompt").hide();
-
-//Controls functionality to start test.
-$(".starttest").click(function () {
-    $(".demo").hide();
-    $(".test").show();
-    test = true;
-    numTrials = prompt("How many trials do you want this test to contain (In addition to five practice trials) Enter a number");
-    numTrials = parseInt(numTrials);
-    textTest();
-});
 
 // show second screen when clicked
 $(document).ready(function () {
@@ -129,8 +105,6 @@ $(document).ready(function () {
     });
 });
 
-
-
 // "typing" for keyboard
 $(function(){
     var $write = $('#write');
@@ -148,7 +122,7 @@ $(function(){
         $('.home, .middle').show();
 
         //records data if after practice trials
-        if(keystrokes) {
+        if(count) {
             recordKeyData(character);
         }
     });
@@ -164,7 +138,7 @@ $(function(){
     });
     
     //Records data if after practice trials
-    if(keystrokes) {
+    if(count > 5) {
         recordKeyData(character);
     }
 });
@@ -176,12 +150,14 @@ inputbox.on("swipeleft", function() {
     var temp = textbox.innerHTML;
     var length = temp.length -  1;
     textbox.innerHTML = temp.substring(0, length);
-    if(keystrokes) {
+    if(count > 5) {
         recordKeyData("&#x8");
     }
 });
 
 
+//Something about this code causes hammer to fail
+/*
 // Access numbers: swipe right
 var homepage = document.getElementsByClassName("homepage");
 var numbers = document.getElementsByClassName("numbers");
@@ -206,34 +182,42 @@ var mainpage = new Hammer(symbols);
 mainpage.on("swipeleft", function() {
     punctuation1.hide();
     punctuation2.show();
+}); */
+
+
+//Controls functionality to start test.
+$(".starttest").click(function () {
+    $(".demo").hide();
+    $(".test").show();
+    test = true;
+    numTrials = prompt("How many trials do you want this test to contain (In addition to five practice trials) Enter a number");
+    numTrials = parseInt(numTrials);
+    count++;
+    textTest();
 });
 
-
-
-
-//Swipe right on input box to enter text
-inputbox.on("swiperight", function() {     
-    count++;
-
-    //Records data at the end of a trial     
-    if(keystrokes && count > 5) {
-        var transcribed = $(".input").text();      
-        var results = $(".results");
-        results.append(document.createTextNode("<Trial number=\"" + (count - 5) + "\" testing=\"false\" entries=\"" + (trialData.length - 1) + "\">"));
-        results.append('</br>');  
-        for (var i = 0; i < trialData.length; i++) {
-            results.append(document.createTextNode(trialData[i]));
-            results.append('</br>');              
-        }
-        results.append(document.createTextNode("<Transcribed>" + transcribed + "</Transcribed>"));
-        results.append('</br>');  
-        results.append(document.createTextNode("</Trial>"));
-        results.append('</br>'); 
-        trialData = [];
-    }
-
+// Click on send button to input text
+$(".send").click(function() {  
+    
     if(test) {       
-        
+
+        //Records data at the end of a trial     
+        if(count > 5) {
+            var transcribed = $(".input").text();      
+            var results = $(".results");
+            results.append(document.createTextNode("<Trial number=\"" + (count - 5) + "\" testing=\"false\" entries=\"" + (trialData.length - 1) + "\">"));
+            results.append('</br>');  
+            for (var i = 0; i < trialData.length; i++) {
+                results.append(document.createTextNode(trialData[i]));
+                results.append('</br>');              
+            }
+            results.append(document.createTextNode("<Transcribed>" + transcribed + "</Transcribed>"));
+            results.append('</br>');  
+            results.append(document.createTextNode("</Trial>"));
+            results.append('</br>'); 
+            trialData = [];
+        }
+
         //Creates testing information once practice trials have been completed
         if(count == 5) {
             var d = new Date();
@@ -242,8 +226,7 @@ inputbox.on("swiperight", function() {
             var seconds = ticks / 10000000;      
             var results = $(".results");
             results.append(document.createTextNode("<TextTest version=\"2.7.2\" trials=\"" + numTrials + "\" ticks=\"" + ticks + "\" seconds=\"" + seconds + "\" date=\"" + date + "\">"));    
-            results.append('</br>');
-            keystrokes = true;        
+            results.append('</br>');      
         } 
         
         //If test is finished
@@ -253,12 +236,17 @@ inputbox.on("swiperight", function() {
             $(".prompt").hide();
             $(".resultssection").show();
             test = false;
-            keystrokes = false; 
             $(".input").empty();     
+        
+        //Shows the next question if the test is not finished
         } else {
             showNextQuestion();
         }
 
+        count++;
+
+    } else {
+        $(".input").empty();
     }
 });
 
@@ -281,7 +269,7 @@ function showNextQuestion() {
         $(".promptText").text(singlePhrase); 
         
         //records data at beginning of trial
-        if(keystrokes) {
+        if(count > 5) {
             trialData.push("<Presented>" + singlePhrase + "</Presented>");           
         } 
 }
