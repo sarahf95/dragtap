@@ -132,16 +132,18 @@ $(function(){
 //Space bar functionality
 $(function(){
     var $write = $('#write');   
-    var character = ' ';
     //Typing with click 
     $('#space').mousedown(function(){
-        $write.html($write.html() + character);
+        var character = ' ';
+        $write.html($write.html() + character);       
+        
+        //Records data if after practice trials
+        if(test) {
+            recordKeyData(character);
+        }
     });
     
-    //Records data if after practice trials
-    if(test) {
-        recordKeyData(character);
-    }
+
 });
 
 //Backspace functionality: swipe left to backspace
@@ -235,8 +237,7 @@ $(".starttest").click(function () {
         var pattern = new RegExp("0?" + hh + ":" + m + ":" + s);
 
         var replacement = h + ":" + m;
-        /* if you want to add seconds
-        replacement += ":"+s;  */
+        replacement += ":"+s; 
         replacement += " " + dd;
 
         return date.replace(pattern, replacement);
@@ -357,4 +358,5 @@ $('.download').click(function() {
     ev = document.createEvent("MouseEvents");
     ev.initMouseEvent("click", true, false, self, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
     a.dispatchEvent(ev);
+    console.log(xml);
 });
