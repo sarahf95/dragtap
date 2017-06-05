@@ -325,7 +325,7 @@ function textTest() {
 //Shows a new phrase
 function showNextQuestion() {               
         $(".input").empty();
-        var singlePhrase = phrases[Math.floor((Math.random() * phrases.length))]
+        var singlePhrase = phrases[Math.floor((Math.random() * phrases.length))];
         $(".promptText").text(singlePhrase); 
 }
 
@@ -334,9 +334,10 @@ function recordKeyData(key) {
     var d = new Date();
     var data = [3];
     data[0] = ((d.getTime() * 10000) + 621355968000000000);             
-    var ascii = key.charCodeAt(0)
+    var ascii = key.charCodeAt(0);
     if(key == "back") {
-        acii = 8;
+        alert("works");
+        ascii = 8;
         key = "&#x8";
     } else if (key == " ") {
         ascii = 32;
