@@ -154,7 +154,7 @@ inputbox.on("swipeleft", function() {
     var length = temp.length -  1;
     textbox.innerHTML = temp.substring(0, length);
     if(test) {
-        recordKeyData("&#x8");
+        recordKeyData("back");
     }
 });
 
@@ -335,8 +335,9 @@ function recordKeyData(key) {
     var data = [3];
     data[0] = ((d.getTime() * 10000) + 621355968000000000);             
     var ascii = key.charCodeAt(0)
-    if(key == "&#x8") {
+    if(key == "back") {
         acii = 8;
+        key = "&#x8";
     } else if (key == " ") {
         ascii = 32;
     }
