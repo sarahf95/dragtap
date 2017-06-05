@@ -336,7 +336,6 @@ function recordKeyData(key) {
     data[0] = ((d.getTime() * 10000) + 621355968000000000);             
     var ascii = key.charCodeAt(0);
     if(key == "back") {
-        alert("works");
         ascii = 8;
         key = "&#x8";
     } else if (key == " ") {
