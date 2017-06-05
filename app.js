@@ -198,7 +198,7 @@ $(".starttest").click(function () {
  
     //From Jimmy
     var ticks = ((new Date().getTime() * 10000) + 621355968000000000);
-    var seconds = ticks / 10000000;
+    var seconds = Math.round((ticks / 10000000) * 100) / 100;
     var root = userData.documentElement;
     root.setAttribute("version", "2.7.2");
     root.setAttribute("trials", numTrials); 
@@ -284,7 +284,7 @@ $(".send").click(function() {
             entryElement.setAttribute("char", trialData[i][1]);
             entryElement.setAttribute("value", trialData[i][2]);
             entryElement.setAttribute("ticks", trialData[i][0]);		
-            entryElement.setAttribute("seconds", trialData[i][0] / 10000000);
+            entryElement.setAttribute("seconds", Math.round((trialData[i][0] / 10000000) * 100) / 100);
             userData.getElementsByTagName("Trial")[count - 1].appendChild(entryElement);  
         }
 
