@@ -160,9 +160,9 @@ inputbox.on("swipeleft", function() {
 
 
 //Something about this code causes hammer to fail
-/*
+
 // Access numbers: swipe right
-var homepage = document.getElementsByClassName("homepage");
+var homepage = document.getElementsByClassName("swipepage");
 var numbers = document.getElementsByClassName("numbers");
 var mainpage = new Hammer(homepage);
 mainpage.on("swiperight", function() {
@@ -185,7 +185,7 @@ var mainpage = new Hammer(symbols);
 mainpage.on("swipeleft", function() {
     punctuation1.hide();
     punctuation2.show();
-}); */
+}); 
 
 
 //Controls functionality to start test.
